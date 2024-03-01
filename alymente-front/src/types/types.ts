@@ -1,0 +1,65 @@
+type User = {
+  id?: string;
+  nome: string;
+  idade: number;
+  cpf: string;
+  rg: string;
+  data_nasc: string;
+  sexo: string;
+  signo:
+    | "Áries"
+    | "Touro"
+    | "Gêmeos"
+    | "Câncer"
+    | "Leão"
+    | "Virgem"
+    | "Libra"
+    | "Escorpião"
+    | "Sagitário"
+    | "Capricórnio"
+    | "Aquário"
+    | "Peixes";
+  mae: string;
+  pai: string;
+  email: string;
+  senha: string;
+  cep: string;
+  endereco: string;
+  numero: number;
+  bairro: string;
+  cidade: string;
+  estado:
+    | "AC"
+    | "AL"
+    | "AP"
+    | "AM"
+    | "BA"
+    | "CE"
+    | "DF"
+    | "ES"
+    | "GO"
+    | "MA"
+    | "MT"
+    | "MS"
+    | "MG"
+    | "PA"
+    | "PB"
+    | "PR"
+    | "PE"
+    | "PI"
+    | "RJ"
+    | "RN"
+    | "RS"
+    | "RO"
+    | "RR"
+    | "SC"
+    | "SP"
+    | "SE"
+    | "TO";
+  telefone_fixo: string;
+  celular: string;
+  altura: string;
+  peso: number;
+  tipo_sanguineo: "A+" | "A-" | "B+" | "B-" | "AB+" | "AB-" | "O+" | "O-";
+  cor: "laranja";
+};
