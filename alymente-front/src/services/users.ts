@@ -20,4 +20,4 @@ const addUser = async (user: User): Promise<User[]> => {
   return response.data?.data;
 };
 
-export { getUsers };
+export { getUsers, addUser };

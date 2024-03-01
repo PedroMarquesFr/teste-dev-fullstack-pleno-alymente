@@ -5,7 +5,6 @@ import { getUsers } from "@/services/users";
 
 export default async function Home() {
   const users = await getUsers();
-  console.log("asdasd", users);
   return (
     <main className="">
       <section className="m-11">

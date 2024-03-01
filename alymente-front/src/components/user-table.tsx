@@ -39,6 +39,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { notVisibleColumns } from "./user-table-columns";
 
 interface DataTableProps {
   columns: ColumnDef<User>[];
@@ -50,16 +51,7 @@ export const DataTable: React.FC<DataTableProps> = (props) => {
     []
   );
   const [columnVisibility, setColumnVisibility] =
-    React.useState<VisibilityState>({
-      cpf: false,
-      rg: false,
-      signo: false,
-      mae: false,
-      pai: false,
-      senha: false,
-      cep: false,
-      endereco: false
-    }); // por hora
+    React.useState<VisibilityState>(notVisibleColumns); // por hora
   const [rowSelection, setRowSelection] = React.useState({});
   const [pagination, setPagination] = React.useState<PaginationState>({
     pageIndex: 0,
@@ -91,7 +83,7 @@ export const DataTable: React.FC<DataTableProps> = (props) => {
     <div className="w-full">
       <div className="flex items-center py-4">
         <Input
-          placeholder="Filter emails..."
+          placeholder="Filtrar por email..."
           value={(table.getColumn("email")?.getFilterValue() as string) ?? ""}
           onChange={(event) =>
             table.getColumn("email")?.setFilterValue(event.target.value)
@@ -101,7 +93,7 @@ export const DataTable: React.FC<DataTableProps> = (props) => {
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="outline" className="ml-auto">
-              Columns <ChevronDownIcon className="ml-2 h-4 w-4" />
+              Colunas visíveis <ChevronDownIcon className="ml-2 h-4 w-4" />
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
@@ -168,7 +160,7 @@ export const DataTable: React.FC<DataTableProps> = (props) => {
                   colSpan={props.columns.length}
                   className="h-24 text-center"
                 >
-                  No results.
+                  Sem resultados.
                 </TableCell>
               </TableRow>
             )}
@@ -183,7 +175,7 @@ export const DataTable: React.FC<DataTableProps> = (props) => {
             onClick={() => table.previousPage()}
             disabled={!table.getCanPreviousPage()}
           >
-            Previous
+            Anterior
           </Button>
           <Button
             variant="outline"
@@ -191,7 +183,7 @@ export const DataTable: React.FC<DataTableProps> = (props) => {
             onClick={() => table.nextPage()}
             disabled={!table.getCanNextPage()}
           >
-            Next
+            Próxima
           </Button>
         </div>
       </div>

@@ -1,5 +1,5 @@
 "use client";
-
+import { useRouter } from "next/navigation";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -14,6 +14,17 @@ import { Button } from "./ui/button";
 
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
+
+export const notVisibleColumns = {
+  cpf: false,
+  rg: false,
+  signo: false,
+  mae: false,
+  pai: false,
+  senha: false,
+  cep: false,
+  endereco: false,
+};
 
 export const columns: ColumnDef<User>[] = [
   {
@@ -79,6 +90,7 @@ export const columns: ColumnDef<User>[] = [
     enableHiding: false,
     cell: ({ row }) => {
       const user = row.original;
+      const router = useRouter();
       return (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
@@ -89,87 +101,100 @@ export const columns: ColumnDef<User>[] = [
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Ações</DropdownMenuLabel>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem onClick={() => console.log("teste", row.original)}>View customer</DropdownMenuItem>
-            <DropdownMenuItem>View payment details</DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
-      );
-    },
-  },
-];
-
-export type Payment = {
-  id: string;
-  amount: number;
-  status: "pending" | "processing" | "success" | "failed";
-  email: string;
-};
-export const columnsEx: ColumnDef<Payment>[] = [
-  {
-    accessorKey: "status",
-    header: "Status",
-    cell: ({ row }) => (
-      <div className="capitalize">{row.getValue("status")}</div>
-    ),
-  },
-  {
-    accessorKey: "email",
-    header: ({ column }) => {
-      return (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        >
-          Email
-          <CaretSortIcon className="ml-2 h-4 w-4" />
-        </Button>
-      );
-    },
-    cell: ({ row }) => <div className="lowercase">{row.getValue("email")}</div>,
-  },
-  {
-    accessorKey: "amount",
-    header: () => <div className="text-right">Amount</div>,
-    cell: ({ row }) => {
-      const amount = parseFloat(row.getValue("amount"));
-
-      // Format the amount as a dollar amount
-      const formatted = new Intl.NumberFormat("en-US", {
-        style: "currency",
-        currency: "USD",
-      }).format(amount);
-
-      return <div className="text-right font-medium">{formatted}</div>;
-    },
-  },
-  {
-    id: "actions",
-    enableHiding: false,
-    cell: ({ row }) => {
-      const payment = row.original;
-
-      return (
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="ghost" className="h-8 w-8 p-0">
-              <span className="sr-only">Open menu</span>
-              <DotsHorizontalIcon className="h-4 w-4" />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            <DropdownMenuLabel>Actions</DropdownMenuLabel>
             <DropdownMenuItem
-              onClick={() => navigator.clipboard.writeText(payment.id)}
+              onClick={() => {
+                router.push(
+                  `/details?nome=${user.nome}&idade=${user.idade}&cpf=${user.cpf}&rg=${user.rg}&data_nasc=${user.data_nasc}&sexo=${user.sexo}&signo=${user.signo}&mae=${user.mae}&pai=${user.pai}&email=${user.email}&senha=${user.senha}&cep=${user.cep}&endereco=${user.endereco}&numero=${user.numero}&bairro=${user.bairro}&cidade=${user.cidade}&estado=${user.estado}&telefone_fixo=${user.telefone_fixo}&celular=${user.celular}&altura=${user.altura}&peso=${user.peso}&tipo_sanguineo=${user.tipo_sanguineo}&cor=${user.cor}`
+                );
+              }}
             >
-              Copy payment ID
+              Detalhes
             </DropdownMenuItem>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>View customer</DropdownMenuItem>
-            <DropdownMenuItem>View payment details</DropdownMenuItem>
+            <DropdownMenuItem
+              onClick={() => console.log("teste", row.original)}
+            >
+              Editar
+            </DropdownMenuItem>
+            <DropdownMenuItem>Deletar</DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       );
     },
   },
 ];
+
+// export type Payment = {
+//   id: string;
+//   amount: number;
+//   status: "pending" | "processing" | "success" | "failed";
+//   email: string;
+// };
+// export const columnsEx: ColumnDef<Payment>[] = [
+//   {
+//     accessorKey: "status",
+//     header: "Status",
+//     cell: ({ row }) => (
+//       <div className="capitalize">{row.getValue("status")}</div>
+//     ),
+//   },
+//   {
+//     accessorKey: "email",
+//     header: ({ column }) => {
+//       return (
+//         <Button
+//           variant="ghost"
+//           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+//         >
+//           Email
+//           <CaretSortIcon className="ml-2 h-4 w-4" />
+//         </Button>
+//       );
+//     },
+//     cell: ({ row }) => <div className="lowercase">{row.getValue("email")}</div>,
+//   },
+//   {
+//     accessorKey: "amount",
+//     header: () => <div className="text-right">Amount</div>,
+//     cell: ({ row }) => {
+//       const amount = parseFloat(row.getValue("amount"));
+
+//       // Format the amount as a dollar amount
+//       const formatted = new Intl.NumberFormat("en-US", {
+//         style: "currency",
+//         currency: "USD",
+//       }).format(amount);
+
+//       return <div className="text-right font-medium">{formatted}</div>;
+//     },
+//   },
+//   {
+//     id: "actions",
+//     enableHiding: false,
+//     cell: ({ row }) => {
+//       const payment = row.original;
+
+//       return (
+//         <DropdownMenu>
+//           <DropdownMenuTrigger asChild>
+//             <Button variant="ghost" className="h-8 w-8 p-0">
+//               <span className="sr-only">Open menu</span>
+//               <DotsHorizontalIcon className="h-4 w-4" />
+//             </Button>
+//           </DropdownMenuTrigger>
+//           <DropdownMenuContent align="end">
+//             <DropdownMenuLabel>Actions</DropdownMenuLabel>
+//             <DropdownMenuItem
+//               onClick={() => navigator.clipboard.writeText(payment.id)}
+//             >
+//               Copy payment ID
+//             </DropdownMenuItem>
+//             <DropdownMenuSeparator />
+//             <DropdownMenuItem>View customer</DropdownMenuItem>
+//             <DropdownMenuItem>View payment details</DropdownMenuItem>
+//           </DropdownMenuContent>
+//         </DropdownMenu>
+//       );
+//     },
+//   },
+// ];
