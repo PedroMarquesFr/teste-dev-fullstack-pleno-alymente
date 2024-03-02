@@ -11,7 +11,7 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { UserPlus } from "lucide-react";
+import { Pencil } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -40,12 +40,13 @@ import {
   SelectValue,
 } from "./ui/select";
 
-export function ModalCreateUser() {
+interface ModalEditUserProps {
+  user: User;
+}
+export function ModalEditUser(props: ModalEditUserProps) {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
-    defaultValues: {
-      signo: "Áries",
-    },
+    defaultValues: { ...props.user },
   });
 
   function onSubmit(values: z.infer<typeof formSchema>) {
@@ -56,14 +57,13 @@ export function ModalCreateUser() {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant="outline" className="ml-3">
-          Criar usuário
-          <UserPlus className="ml-2 h-4 w-4" />
+        <Button variant="outline" className="">
+          <Pencil className="h-4 w-4" />
         </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[850px] h-[80vh] overflow-y-scroll">
         <DialogHeader>
-          <DialogTitle>Novo usuário</DialogTitle>
+          <DialogTitle>Editar usuário</DialogTitle>
           <DialogDescription>
             Make changes to your profile here. Click save when you're done.
           </DialogDescription>
@@ -440,13 +440,13 @@ export function ModalCreateUser() {
                 <FormItem>
                   <FormLabel>Cor</FormLabel>
                   <FormControl>
-                    <Input type="number" {...field} />
+                    <Input {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
-            <Button type="submit">Criar usuário</Button>
+            <Button type="submit">Editar usuário</Button>
           </form>
         </Form>
       </DialogContent>

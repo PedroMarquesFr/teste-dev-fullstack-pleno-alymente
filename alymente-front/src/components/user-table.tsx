@@ -40,6 +40,8 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { notVisibleColumns } from "./user-table-columns";
+import { UserPlus } from "lucide-react";
+import { ModalCreateUser } from "./modal-create-user";
 
 interface DataTableProps {
   columns: ColumnDef<User>[];
@@ -82,14 +84,18 @@ export const DataTable: React.FC<DataTableProps> = (props) => {
   return (
     <div className="w-full">
       <div className="flex items-center py-4">
-        <Input
-          placeholder="Filtrar por email..."
-          value={(table.getColumn("email")?.getFilterValue() as string) ?? ""}
-          onChange={(event) =>
-            table.getColumn("email")?.setFilterValue(event.target.value)
-          }
-          className="max-w-sm"
-        />
+        <aside className="flex">
+          <Input
+            placeholder="Filtrar por email..."
+            value={(table.getColumn("email")?.getFilterValue() as string) ?? ""}
+            onChange={(event) =>
+              table.getColumn("email")?.setFilterValue(event.target.value)
+            }
+            className="max-w-sm"
+          />
+          <ModalCreateUser/>
+        </aside>
+
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="outline" className="ml-auto">

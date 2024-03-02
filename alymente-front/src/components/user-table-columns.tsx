@@ -11,6 +11,8 @@ import {
 import { ColumnDef } from "@tanstack/react-table";
 import { CaretSortIcon, DotsHorizontalIcon } from "@radix-ui/react-icons";
 import { Button } from "./ui/button";
+import { ModalEditUser } from "./modal-edit-user";
+import { ListCollapse, Trash2 } from "lucide-react";
 
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
@@ -85,40 +87,50 @@ export const columns: ColumnDef<User>[] = [
     header: "Número",
   },
   {
-    header: "Ações",
+    header: "Detalhes",
     id: "actions",
     enableHiding: false,
     cell: ({ row }) => {
       const user = row.original;
       const router = useRouter();
       return (
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="ghost" className="h-8  p-0">
-              <span className="sr-only">Open menu</span>
-              <DotsHorizontalIcon className="h-4 w-4" />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            <DropdownMenuLabel>Ações</DropdownMenuLabel>
-            <DropdownMenuItem
-              onClick={() => {
-                router.push(
-                  `/details?nome=${user.nome}&idade=${user.idade}&cpf=${user.cpf}&rg=${user.rg}&data_nasc=${user.data_nasc}&sexo=${user.sexo}&signo=${user.signo}&mae=${user.mae}&pai=${user.pai}&email=${user.email}&senha=${user.senha}&cep=${user.cep}&endereco=${user.endereco}&numero=${user.numero}&bairro=${user.bairro}&cidade=${user.cidade}&estado=${user.estado}&telefone_fixo=${user.telefone_fixo}&celular=${user.celular}&altura=${user.altura}&peso=${user.peso}&tipo_sanguineo=${user.tipo_sanguineo}&cor=${user.cor}`
-                );
-              }}
-            >
-              Detalhes
-            </DropdownMenuItem>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem
-              onClick={() => console.log("teste", row.original)}
-            >
-              Editar
-            </DropdownMenuItem>
-            <DropdownMenuItem>Deletar</DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
+        <Button
+          variant="outline"
+          onClick={() => {
+            router.push(
+              `/details?nome=${user.nome}&idade=${user.idade}&cpf=${user.cpf}&rg=${user.rg}&data_nasc=${user.data_nasc}&sexo=${user.sexo}&signo=${user.signo}&mae=${user.mae}&pai=${user.pai}&email=${user.email}&senha=${user.senha}&cep=${user.cep}&endereco=${user.endereco}&numero=${user.numero}&bairro=${user.bairro}&cidade=${user.cidade}&estado=${user.estado}&telefone_fixo=${user.telefone_fixo}&celular=${user.celular}&altura=${user.altura}&peso=${user.peso}&tipo_sanguineo=${user.tipo_sanguineo}&cor=${user.cor}`
+            );
+          }}
+        >
+          <ListCollapse className="h-4 w-4" />
+        </Button>
+      );
+    },
+  },
+  {
+    header: "Editar",
+    id: "actions",
+    enableHiding: false,
+    cell: ({ row }) => {
+      const user = row.original;
+      return <ModalEditUser user={user} />;
+    },
+  },
+  {
+    header: "Deletar",
+    id: "actions",
+    enableHiding: false,
+    cell: ({ row }) => {
+      const user = row.original;
+      return (
+        <Button
+          variant="outline"
+          onClick={() => {
+            console.log("deletado");
+          }}
+        >
+          <Trash2 className="h-4 w-4" />
+        </Button>
       );
     },
   },
