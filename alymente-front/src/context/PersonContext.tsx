@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { getUsers } from "@/services/users";
 import React, {
   createContext,
@@ -8,6 +8,7 @@ import React, {
   useEffect,
 } from "react";
 import { saveUsers } from "@/services/cookies";
+import { useToast } from "@/components/ui/use-toast";
 
 interface PersonContextType {
   data: User[];
@@ -26,13 +27,14 @@ const PersonContext = createContext<PersonContextType>({
   createUser: (user: User) => {},
   updateUser: (user: User) => {},
   deleteUser: (userEmail: string) => {},
-  populateUsers: (users: User[]) => {}
+  populateUsers: (users: User[]) => {},
 });
 
 type ThemeContextProps = {
   children: ReactNode;
 };
 const PersonProvider: React.FC<ThemeContextProps> = ({ children }) => {
+  const { toast } = useToast();
   const [data, setData] = useState<User[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   useEffect(() => {
@@ -45,12 +47,29 @@ const PersonProvider: React.FC<ThemeContextProps> = ({ children }) => {
     saveUsers(users);
     setData(users);
     setIsLoading(false);
+    toast({
+      title: "Sucesso",
+      description: "Usuários listados",
+    });
   };
-  const populateUsers = (users:User[]) => {
+  const populateUsers = (users: User[]) => {
     setData(users);
   };
 
   const createUser = (user: User) => {
+    const doesUserAlreadyExists = data.find(
+      (user) => user.email === user.email
+    );
+    if (doesUserAlreadyExists) {
+      return toast({
+        title: "Falha",
+        description: " Um usuário com esse email ja existe",
+      });
+    }
+    toast({
+      title: "Sucesso",
+      description: "Usuário criado",
+    });
     setData([...data, user]);
   };
   const updateUser = (newUser: User) => {
@@ -63,16 +82,27 @@ const PersonProvider: React.FC<ThemeContextProps> = ({ children }) => {
       return user;
     });
     setData(newData);
+    toast({
+      title: "Sucesso",
+      description: "Usuário atualizado",
+    });
   };
   const deleteUser = (userEmail: string) => {
     for (let i = 0; i < data.length; i++) {
       if (data[i].email == userEmail) {
         const newData = [...data];
         newData.splice(i, 1);
-        setData(newData);
-        break;
+        toast({
+          title: "Sucesso",
+          description: "Usuário deletado",
+        });
+        return setData(newData);
       }
     }
+    toast({
+      title: "Falha",
+      description: "Usuário nao encontrado",
+    });
   };
   return (
     <PersonContext.Provider
@@ -83,7 +113,7 @@ const PersonProvider: React.FC<ThemeContextProps> = ({ children }) => {
         createUser,
         updateUser,
         deleteUser,
-        populateUsers
+        populateUsers,
       }}
     >
       {children}

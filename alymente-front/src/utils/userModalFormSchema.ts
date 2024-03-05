@@ -1,7 +1,7 @@
 import { z } from "zod";
 const formSchema = z.object({
   nome: z.string().min(2).max(50),
-  idade: z.string(),
+  idade: z.number(),
   cpf: z.string(),
   rg: z.string(),
   data_nasc: z.string().optional(),

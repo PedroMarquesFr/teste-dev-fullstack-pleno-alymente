@@ -2,6 +2,7 @@
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
+  DialogClose,
   DialogContent,
   DialogDescription,
   DialogFooter,
@@ -93,7 +94,16 @@ export function ModalCreateUser() {
                 <FormItem>
                   <FormLabel>Idade</FormLabel>
                   <FormControl>
-                    <Input type="number" placeholder="24" {...field} />
+                    <Input
+                      type="number"
+                      placeholder="24"
+                      {...field}
+                      onChange={(e) => {
+                        // Convert the input value to a number and update the field value
+                        const value = parseInt(e.target.value, 10);
+                        field.onChange(value);
+                      }}
+                    />
                   </FormControl>
                   <FormDescription>Obrigatório</FormDescription>
                   <FormMessage />
@@ -250,7 +260,10 @@ export function ModalCreateUser() {
                 <FormItem>
                   <FormLabel>Senha</FormLabel>
                   <FormControl>
-                    <Input placeholder="1234567" {...field} />
+                    <Input
+                      placeholder="1234567"
+                      {...field}
+                    />
                   </FormControl>
                   <FormDescription>Obrigatório</FormDescription>
                   <FormMessage />
@@ -445,7 +458,9 @@ export function ModalCreateUser() {
                 </FormItem>
               )}
             />
-            <Button type="submit">Criar usuário</Button>
+            <DialogClose asChild>
+              <Button type="submit">Criar usuário</Button>
+            </DialogClose>
           </form>
         </Form>
       </DialogContent>
