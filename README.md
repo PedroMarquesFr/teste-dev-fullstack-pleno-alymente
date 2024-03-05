@@ -1,4 +1,4 @@
-# Avaliação React para Desenvolvedor Front-End - Pleno
+# Avaliação React para Desenvolvedor FullStack - Pleno
 
 ## Descrição
 
