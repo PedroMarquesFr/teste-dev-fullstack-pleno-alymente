@@ -2,7 +2,8 @@
 
 ## Descrição
 
-Fiz usando as instruções passadas no arquivo, desculpa a demora pq tive que dar vazao as tasks da minha empresa atual além de fazer o teste, no entanto fiz com muito carinho, espero que gostem ❤️
+Fiz usando as instruções passadas no arquivo, desculpa a demora pq tive que dar vazao as tasks da minha empresa atual além de fazer o teste, no entanto fiz com muito carinho, espero que gostem.
+Usei principios SOLID da estruturação do front end além de simular requisição a api e gerenciamento de estado usando ContextAPI
 
 ## Instruções de instalação
 
