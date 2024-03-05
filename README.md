@@ -16,7 +16,7 @@ Certifique-se de ter o Node.js instalado.
 2. Clone o repositório com o comando
 
    ```bash
-   git clone https://github.com/PedroMarquesFr/teste-dev-fullstack-pleno-alymente
+   git clone https://github.com/PedroMarquesFr/teste-dev-fullstack-pleno-alymente.git
    ```
 
 ### Instalando Dependências
