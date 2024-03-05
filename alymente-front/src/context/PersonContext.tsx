@@ -56,10 +56,11 @@ const PersonProvider: React.FC<ThemeContextProps> = ({ children }) => {
     setData(users);
   };
 
-  const createUser = (user: User) => {
+  const createUser = (newUser: User) => {
     const doesUserAlreadyExists = data.find(
-      (user) => user.email === user.email
+      (user) => user.email === newUser.email
     );
+    debugger;
     if (doesUserAlreadyExists) {
       return toast({
         title: "Falha",
