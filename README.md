@@ -37,5 +37,3 @@ npm run dev
 ```
 
 Após executar este comando, a aplicação estará disponível em `http://localhost:3000` no seu navegador.
-
-Espero que gostem! 
