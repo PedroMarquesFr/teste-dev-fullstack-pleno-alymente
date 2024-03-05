@@ -99,7 +99,6 @@ export function ModalCreateUser() {
                       placeholder="24"
                       {...field}
                       onChange={(e) => {
-                        // Convert the input value to a number and update the field value
                         const value = parseInt(e.target.value, 10);
                         field.onChange(value);
                       }}
@@ -164,7 +163,6 @@ export function ModalCreateUser() {
                       className={cn(
                         "flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
                       )}
-                      // placeholder="31/12/2024"
                       {...field}
                     />
                   </FormControl>
