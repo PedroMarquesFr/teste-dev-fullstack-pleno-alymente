@@ -3,8 +3,8 @@
 ## Descrição
 
 Fiz usando as instruções passadas no arquivo, desculpa a demora pq tive que dar vazao as tasks da minha empresa atual além de fazer o teste, no entanto fiz com muito carinho, espero que gostem!
-Usei principios SOLID da estruturação do front end, além de simular requisição a api e gerenciamento de estado usando ContextAPI. e separação em camadas de responsabilidade
-Infelizmente pelo nao consegui concluir a api a tempo e optei por retira-la, acabei escolhendo manter o front com gerenciamento de estado em memória (ContextAPI)
+Usei principios SOLID da estruturação do front end, além de simular requisição a api e gerenciamento de estado usando ContextAPI e separação em camadas de responsabilidade.
+Infelizmente nao consegui concluir a api a tempo e optei por retira-la, pq nao deu tempo concluir as outras camadas alem do domínio, por conta disso acabei escolhendo manter o front com gerenciamento de estado global em memória (ContextAPI)
 
 ## Instruções de instalação
 
