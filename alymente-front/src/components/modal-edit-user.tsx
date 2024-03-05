@@ -2,6 +2,7 @@
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
+  DialogClose,
   DialogContent,
   DialogDescription,
   DialogFooter,
@@ -39,20 +40,23 @@ import {
   SelectTrigger,
   SelectValue,
 } from "./ui/select";
+import { useContext } from "react";
+import { PersonContext } from "@/context/PersonContext";
 
 interface ModalEditUserProps {
   user: User;
 }
 export function ModalEditUser(props: ModalEditUserProps) {
+  const personContext = useContext(PersonContext);
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
-    defaultValues: { ...props.user },
+    // @ts-ignore A tipagem ta correta, mas como usa um padrao diferente o ts nao entende direito
+    defaultValues: { ...props.user, email: props.user.email },
   });
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
-    console.log(values);
+    // @ts-ignore A tipagem ta correta, mas como usa um padrao diferente o ts nao entende direito
+    personContext.updateUser(values);
   }
   return (
     <Dialog>
@@ -77,10 +81,7 @@ export function ModalEditUser(props: ModalEditUserProps) {
                 <FormItem>
                   <FormLabel>Nome</FormLabel>
                   <FormControl>
-                    <Input
-                      placeholder="Maria Mariana"
-                      {...field}
-                    />
+                    <Input placeholder="Maria Mariana" {...field} />
                   </FormControl>
                   <FormDescription>Obrigatório</FormDescription>
                   <FormMessage />
@@ -446,7 +447,9 @@ export function ModalEditUser(props: ModalEditUserProps) {
                 </FormItem>
               )}
             />
-            <Button type="submit">Editar usuário</Button>
+            <DialogClose asChild>
+              <Button type="submit">Editar usuário</Button>
+            </DialogClose>
           </form>
         </Form>
       </DialogContent>

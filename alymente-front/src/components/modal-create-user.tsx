@@ -39,8 +39,11 @@ import {
   SelectTrigger,
   SelectValue,
 } from "./ui/select";
+import { PersonContext } from "@/context/PersonContext";
+import { useContext } from "react";
 
 export function ModalCreateUser() {
+  const personContext = useContext(PersonContext);
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -49,9 +52,8 @@ export function ModalCreateUser() {
   });
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
-    console.log(values);
+    // @ts-ignore A tipagem ta correta, mas como usa um padrao diferente o ts nao entende direito
+    personContext.createUser(values);
   }
   return (
     <Dialog>
@@ -77,10 +79,7 @@ export function ModalCreateUser() {
                 <FormItem>
                   <FormLabel>Nome</FormLabel>
                   <FormControl>
-                    <Input
-                      placeholder="Maria Mariana"
-                      {...field}
-                    />
+                    <Input placeholder="Maria Mariana" {...field} />
                   </FormControl>
                   <FormDescription>Obrigatório</FormDescription>
                   <FormMessage />

@@ -13,6 +13,8 @@ import { CaretSortIcon, DotsHorizontalIcon } from "@radix-ui/react-icons";
 import { Button } from "./ui/button";
 import { ModalEditUser } from "./modal-edit-user";
 import { ListCollapse, Trash2 } from "lucide-react";
+import { useContext } from "react";
+import { PersonContext } from "@/context/PersonContext";
 
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
@@ -121,12 +123,13 @@ export const columns: ColumnDef<User>[] = [
     id: "actions",
     enableHiding: false,
     cell: ({ row }) => {
+      const { deleteUser } = useContext(PersonContext);
       const user = row.original;
       return (
         <Button
           variant="outline"
           onClick={() => {
-            console.log("deletado");
+            deleteUser(user.email || "");
           }}
         >
           <Trash2 className="h-4 w-4" />

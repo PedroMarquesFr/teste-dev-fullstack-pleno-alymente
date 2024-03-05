@@ -40,26 +40,30 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { notVisibleColumns } from "./user-table-columns";
-import { UserPlus } from "lucide-react";
 import { ModalCreateUser } from "./modal-create-user";
+import { PersonContext } from "@/context/PersonContext";
 
 interface DataTableProps {
   columns: ColumnDef<User>[];
   data: User[];
 }
 export const DataTable: React.FC<DataTableProps> = (props) => {
+  const { populateUsers } = React.useContext(PersonContext);
+  React.useEffect(() => {
+    populateUsers(props.data);
+  }, []);
+
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     []
   );
   const [columnVisibility, setColumnVisibility] =
-    React.useState<VisibilityState>(notVisibleColumns); // por hora
+    React.useState<VisibilityState>(notVisibleColumns);
   const [rowSelection, setRowSelection] = React.useState({});
   const [pagination, setPagination] = React.useState<PaginationState>({
     pageIndex: 0,
     pageSize: 4,
   });
-  props.data;
   const table = useReactTable({
     data: props.data,
     columns: props.columns,
@@ -93,7 +97,7 @@ export const DataTable: React.FC<DataTableProps> = (props) => {
             }
             className="max-w-sm"
           />
-          <ModalCreateUser/>
+          <ModalCreateUser />
         </aside>
 
         <DropdownMenu>

@@ -1,12 +1,12 @@
 type User = {
   id?: string;
-  nome: string;
-  idade: number;
-  cpf: string;
-  rg: string;
-  data_nasc: string;
-  sexo: string;
-  signo:
+  nome?: string;
+  idade?: number;
+  cpf?: string;
+  rg?: string;
+  data_nasc?: string;
+  sexo?: string;
+  signo?:
     | "Áries"
     | "Touro"
     | "Gêmeos"
@@ -19,16 +19,16 @@ type User = {
     | "Capricórnio"
     | "Aquário"
     | "Peixes";
-  mae: string;
-  pai: string;
-  email: string;
-  senha: string;
-  cep: string;
-  endereco: string;
-  numero: number;
-  bairro: string;
-  cidade: string;
-  estado:
+  mae?: string;
+  pai?: string;
+  email?: string;
+  senha?: string;
+  cep?: string;
+  endereco?: string;
+  numero?: number;
+  bairro?: string;
+  cidade?: string;
+  estado?:
     | "AC"
     | "AL"
     | "AP"
@@ -56,10 +56,10 @@ type User = {
     | "SP"
     | "SE"
     | "TO";
-  telefone_fixo: string;
-  celular: string;
-  altura: string;
-  peso: number;
-  tipo_sanguineo: "A+" | "A-" | "B+" | "B-" | "AB+" | "AB-" | "O+" | "O-";
-  cor: "laranja";
+  telefone_fixo?: string;
+  celular?: string;
+  altura?: string;
+  peso?: number;
+  tipo_sanguineo?: "A+" | "A-" | "B+" | "B-" | "AB+" | "AB-" | "O+" | "O-";
+  cor?: string;
 };

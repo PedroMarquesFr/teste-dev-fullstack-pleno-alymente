@@ -1,6 +1,13 @@
+"use client"
 import { getUsers } from "@/services/users";
-import React, { createContext, useState, useContext, ReactNode } from "react";
-import usersMock from "../../data.json";
+import React, {
+  createContext,
+  useState,
+  useContext,
+  ReactNode,
+  useEffect,
+} from "react";
+import { saveUsers } from "@/services/cookies";
 
 interface PersonContextType {
   data: User[];
@@ -8,7 +15,8 @@ interface PersonContextType {
   isLoading: boolean;
   createUser: (user: User) => void;
   updateUser: (user: User) => void;
-  deleteUser: (userId: string) => void;
+  deleteUser: (userEmail: string) => void;
+  populateUsers: (users: User[]) => void;
 }
 
 const PersonContext = createContext<PersonContextType>({
@@ -17,7 +25,8 @@ const PersonContext = createContext<PersonContextType>({
   isLoading: false,
   createUser: (user: User) => {},
   updateUser: (user: User) => {},
-  deleteUser: (userId: string) => {},
+  deleteUser: (userEmail: string) => {},
+  populateUsers: (users: User[]) => {}
 });
 
 type ThemeContextProps = {
@@ -26,33 +35,44 @@ type ThemeContextProps = {
 const PersonProvider: React.FC<ThemeContextProps> = ({ children }) => {
   const [data, setData] = useState<User[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  useEffect(() => {
+    saveUsers(data);
+  }, [data]);
+
   const fetchUsers = async () => {
     setIsLoading(true);
     const users = await getUsers();
+    saveUsers(users);
     setData(users);
     setIsLoading(false);
   };
-  const getUser = () => {};
+  const populateUsers = (users:User[]) => {
+    setData(users);
+  };
 
   const createUser = (user: User) => {
-    console.log("user updated");
-    // setData([...data]);
+    setData([...data, user]);
   };
-  const updateUser = (user: User) => {
-    console.log("user updated");
-    // const changedStatusTemporary = data.map((user) => {
-    //   if (user.id === patientId) {
-    //     return {
-    //       ...user,
-    //       status: newStatus,
-    //     };
-    //   }
-    //   return user;
-    // });
-    // setData(changedStatusTemporary);
+  const updateUser = (newUser: User) => {
+    const newData = data.map((user) => {
+      if (user.email === newUser.email) {
+        return {
+          ...newUser,
+        };
+      }
+      return user;
+    });
+    setData(newData);
   };
-  const deleteUser = (userId: string) => {
-    console.log("user deleted");
+  const deleteUser = (userEmail: string) => {
+    for (let i = 0; i < data.length; i++) {
+      if (data[i].email == userEmail) {
+        const newData = [...data];
+        newData.splice(i, 1);
+        setData(newData);
+        break;
+      }
+    }
   };
   return (
     <PersonContext.Provider
@@ -62,7 +82,8 @@ const PersonProvider: React.FC<ThemeContextProps> = ({ children }) => {
         isLoading,
         createUser,
         updateUser,
-        deleteUser
+        deleteUser,
+        populateUsers
       }}
     >
       {children}

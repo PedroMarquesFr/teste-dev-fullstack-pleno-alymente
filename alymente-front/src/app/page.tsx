@@ -1,14 +1,21 @@
-import { Button } from "@/components/ui/button";
+"use client"
 import { columns } from "@/components/user-table-columns";
 import { DataTable } from "@/components/user-table";
-import { getUsers } from "@/services/users";
+import { PersonContext } from "@/context/PersonContext";
+import { useContext, useEffect } from "react";
 
-export default async function Home() {
-  const users = await getUsers();
+export default function Home() {
+  const { data, fetchUsers } = useContext(PersonContext);
+
+  useEffect(() => {
+    fetchUsers();
+  }, []);
+
   return (
-    <main className="">
-      <section className="m-11">
-        <DataTable columns={columns} data={users} />
+    <main className="m-8">
+      <h1 className="text-xl font-bold mb-6">Listagem de dados</h1>
+      <section className="m-2">
+        <DataTable columns={columns} data={data} />
       </section>
     </main>
   );
