@@ -6,6 +6,13 @@
 - Usei principios SOLID da estruturação do front end, além de simular requisição a api e gerenciamento de estado usando ContextAPI e separação em camadas de responsabilidade.
 - Infelizmente nao consegui concluir a api a tempo e optei por retira-la, pq nao deu tempo concluir as outras camadas alem do domínio, por conta disso acabei escolhendo manter o front com gerenciamento de estado global em memória (ContextAPI)
 
+## Funcionalidades
+- Listagem dos dados de todas as pessoas.
+- Visualização de dados de uma única pessoa.
+- Inserir uma nova pessoa.
+- Atualização dos dados de uma pessoa.
+- Remoção de uma pessoa.
+
 ## Instruções de instalação
 
 ### Pré-requisitos
