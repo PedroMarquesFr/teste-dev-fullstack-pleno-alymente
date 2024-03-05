@@ -60,7 +60,6 @@ const PersonProvider: React.FC<ThemeContextProps> = ({ children }) => {
     const doesUserAlreadyExists = data.find(
       (user) => user.email === newUser.email
     );
-    debugger;
     if (doesUserAlreadyExists) {
       return toast({
         title: "Falha",
