@@ -71,7 +71,7 @@ const PersonProvider: React.FC<ThemeContextProps> = ({ children }) => {
       title: "Sucesso",
       description: "Usuário criado",
     });
-    setData([...data, user]);
+    setData([...data, newUser]);
   };
   const updateUser = (newUser: User) => {
     const newData = data.map((user) => {
