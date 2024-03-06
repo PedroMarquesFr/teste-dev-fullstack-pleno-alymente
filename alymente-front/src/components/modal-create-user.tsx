@@ -68,7 +68,7 @@ export function ModalCreateUser() {
         <DialogHeader>
           <DialogTitle>Novo usuário</DialogTitle>
           <DialogDescription>
-            Make changes to your profile here. Click save when you're done.
+            Crie um novo usuario
           </DialogDescription>
         </DialogHeader>
         <Form {...form}>

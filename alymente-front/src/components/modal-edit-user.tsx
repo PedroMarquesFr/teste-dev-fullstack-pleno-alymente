@@ -69,7 +69,7 @@ export function ModalEditUser(props: ModalEditUserProps) {
         <DialogHeader>
           <DialogTitle>Editar usuário</DialogTitle>
           <DialogDescription>
-            Make changes to your profile here. Click save when you're done.
+            Edite um usuario existente
           </DialogDescription>
         </DialogHeader>
         <Form {...form}>
